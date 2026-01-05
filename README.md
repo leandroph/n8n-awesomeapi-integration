@@ -17,19 +17,13 @@ Este workflow resolve isso **centralizando a autenticação no backend (n8n)** e
 
 ---
 
+![Preview do Workflow](images/workflow-preview.png)
+
 ## 🏗️ Arquitetura do Workflow
 
 O fluxo de dados segue o padrão **Input -> Transform -> Request -> Response**:
 
-```mermaid
-graph LR
-    A[Webhook Trigger] -->|Recebe POST| B(Data Normalization)
-    B -->|Valida Moeda| C{External API Request}
-    C -->|Injeta Token + GET| D[AwesomeAPI]
-    D -->|Retorna JSON| E[Webhook Response]
-    E -->|Devolve ao Cliente| F((Client App))
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-```
+
 1. **Webhook (Trigger):** Ponto de entrada da API (POST). Recebe a solicitação do cliente.
 
 2. **Data Normalization (Set/Edit Fields):** Isola e valida a variável moeda recebida no corpo da requisição, garantindo que o fluxo seguinte receba dados limpos.
