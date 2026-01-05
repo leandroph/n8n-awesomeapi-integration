@@ -17,7 +17,7 @@ Este workflow resolve isso **centralizando a autenticação no backend (n8n)** e
 
 ---
 
-![Preview do Workflow](images/workflow-preview.png)
+![Preview do Workflow](workflow-preview.png)
 
 ## 🏗️ Arquitetura do Workflow
 
