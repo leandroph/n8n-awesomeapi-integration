@@ -1,0 +1,169 @@
+{
+  "name": "Awesomeapi workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cotacao",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -352,
+        0
+      ],
+      "id": "933471e3-793c-4854-82d7-2bfb7d62accc",
+      "name": "Webhook",
+      "webhookId": "f723972c-ea2e-46e9-a4cf-014945316caa"
+    },
+    {
+      "parameters": {
+        "url": "=https://economia.awesomeapi.com.br/json/last/{{ $json.moeda }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "SUA_CHAVE_API_AQUI_12345"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        80,
+        0
+      ],
+      "id": "42c36cdc-d0ca-458a-8048-77b50884a89e",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9d0a105-5649-448f-b91e-8cc62bb62d02",
+              "name": "moeda",
+              "value": "={{ $json.body.moeda }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -144,
+        0
+      ],
+      "id": "21eb2816-5fa7-4037-9646-180885879d92",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        288,
+        0
+      ],
+      "id": "cacca2af-4700-4adb-ad00-de4ab0d892fc",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "seu-n8n-exemplo.app.n8n.cloud",
+            "user-agent": "PostmanRuntime/7.51.0",
+            "content-length": "23",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "cache-control": "no-cache",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "192.168.0.1",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "BR",
+            "cf-ray": "1a2b3c4d5e6f7g8h-IAD",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "postman-token": "00000000-0000-0000-0000-000000000000",
+            "x-forwarded-for": "192.168.0.1, 10.0.0.1",
+            "x-forwarded-host": "seu-n8n-exemplo.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-99-fake",
+            "x-is-trusted": "yes",
+            "x-real-ip": "192.168.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "moeda": "USD"
+          },
+          "webhookUrl": "https://seu-n8n-exemplo.app.n8n.cloud/webhook/cotacao",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "6030f304-9c1d-4ce5-9a51-0946274c5c30",
+  "meta": {
+    "instanceId": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "id": "QD51NmxYxpRVCgtk",
+  "tags": []
+}
